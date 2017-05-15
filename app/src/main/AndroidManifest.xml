@@ -30,7 +30,12 @@
         <receiver
             android:name=".BootCompleteReceiver"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
         <receiver
             android:name=".AlarmBroadcastReceiver"
             android:enabled="true"
