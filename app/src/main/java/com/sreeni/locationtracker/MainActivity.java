@@ -5,13 +5,12 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -47,6 +46,10 @@ public class MainActivity extends AppCompatActivity
     CognitoCachingCredentialsProvider credentialsProvider;
 
     GoogleApiClient mGoogleApiClient;
+
+    LocationTrackerApp myApp;
+
+    Thread moveThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +123,8 @@ public class MainActivity extends AppCompatActivity
 
         // Retrieve Firebase Registration Id
         getFMRegistrationToken();
+
+        myApp = (LocationTrackerApp) getApplication();
     }
 
     View.OnClickListener connectClick = new View.OnClickListener() {
@@ -195,6 +200,12 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onClick(View v) {
             Log.d(TAG, "View Messages Button clicked");
+            String msg = myApp.tagList.poll();
+            if (msg != null) {
+                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(MainActivity.this, "No messages in Queue!", Toast.LENGTH_SHORT).show();
+            }
         }
     };
 
@@ -307,5 +318,46 @@ public class MainActivity extends AppCompatActivity
     private void sendRegistrationToServer(String userToken) {
         // TODO: Implement this method to send token to your app server.
         // TODO: Use background thread to avoid network operations on UI thread.
+    }
+
+    @Override
+    protected void onStart() {
+        startProducerThread();
+        myApp.waitList.clear();
+        myApp.tagList.clear();
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        stopProducerThread();
+        super.onStop();
+    }
+
+    private void startProducerThread() {
+
+        moveThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.d(TAG, "started move thread");
+                while (!Thread.currentThread().isInterrupted()) {
+                    try {
+                        myApp.tagList.put(myApp.waitList.take());
+                        Log.d(TAG, "added element to Tag-list");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        Log.d(TAG, "move thread is interrupted");
+                        break;
+                    }
+                }
+                Log.d(TAG, "exiting move thread");
+            }
+        });
+
+        moveThread.start();
+    }
+
+    private void stopProducerThread() {
+        moveThread.interrupt();
     }
 }

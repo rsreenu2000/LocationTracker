@@ -32,15 +32,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
-            Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-
-            if (/* Check if data needs to be processed by long running job */ true) {
-                // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
-                scheduleJob();
-            } else {
-                // Handle message within 10 seconds
-                handleNow();
-            }
+            String payload = remoteMessage.getData().toString();
+            Log.d(TAG, "Message data payload: " + payload);
+            scheduleJob(payload);
         }
 
         // Check if message contains a notification payload.
@@ -50,12 +44,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
     // [END receive_message]
 
-    private void scheduleJob() {
+    private void scheduleJob(String payload) {
         Log.d(TAG, "Long lived task is done.");
+        LocationTrackerApp app = (LocationTrackerApp) getApplication();
+        if (app.waitList.offer(payload)) {
+            Log.d(TAG, "added element to Wait-list");
+        }
     }
-
-    private void handleNow() {
-        Log.d(TAG, "Short lived task is done.");
-    }
-
 }
