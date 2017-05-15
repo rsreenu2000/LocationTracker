@@ -28,6 +28,14 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.1'
     testCompile 'junit:junit:4.12'
 
+    // AWS IoT SDK
     compile 'com.amazonaws:aws-android-sdk-iot:2.2.+'
+
+    // Google Play Serivces (Location)
     compile 'com.google.android.gms:play-services-location:10.2.4'
+
+    // Firebase Notification / Cloud Messaging
+    compile 'com.google.firebase:firebase-messaging:10.2.4'
 }
+
+apply plugin: 'com.google.gms.google-services'

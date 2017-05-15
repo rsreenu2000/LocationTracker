@@ -25,6 +25,7 @@ import com.amazonaws.mobileconnectors.iot.AWSIotMqttQos;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class MainActivity extends AppCompatActivity
         implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -116,6 +117,9 @@ public class MainActivity extends AppCompatActivity
             Log.d(TAG, "Set repeating alarm");
             LocationTrackerUtil.setupAlarm(this);
         }
+
+        // Retrieve Firebase Registration Id
+        getFMRegistrationToken();
     }
 
     View.OnClickListener connectClick = new View.OnClickListener() {
@@ -287,5 +291,21 @@ public class MainActivity extends AppCompatActivity
                 mGoogleApiClient.disconnect();
             }
         });
+    }
+
+    private void getFMRegistrationToken() {
+        // Get InstanceID token.
+        String userToken = FirebaseInstanceId.getInstance().getToken();
+        Log.d(TAG, "Registration token: " + userToken);
+
+        // If you want to send messages to this application instance or
+        // manage this apps subscriptions on the server side, send the
+        // Instance ID token to your app server.
+        sendRegistrationToServer(userToken);
+    }
+
+    private void sendRegistrationToServer(String userToken) {
+        // TODO: Implement this method to send token to your app server.
+        // TODO: Use background thread to avoid network operations on UI thread.
     }
 }

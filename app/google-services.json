@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "244472866629",
+    "firebase_url": "https://locationtracker-a13eb.firebaseio.com",
+    "project_id": "locationtracker-a13eb",
+    "storage_bucket": "locationtracker-a13eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:244472866629:android:af8deffdaf053d23",
+        "android_client_info": {
+          "package_name": "com.sreeni.locationtracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "244472866629-0v87lmlasa53675g2000fchkasj318vk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sreeni.locationtracker",
+            "certificate_hash": "a108390cda564faea3db8b5fc36c1c6569238c82"
+          }
+        },
+        {
+          "client_id": "244472866629-d1v4rafqan29prc0v82h0gm43ahl3gdq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAroX_noMG_f1Kn6pMnHqXKigmQ2l0Yvgc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "244472866629-d1v4rafqan29prc0v82h0gm43ahl3gdq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
