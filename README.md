@@ -32,12 +32,12 @@ Implement a topic in AWS IoT to handle the location message coming from the phon
 
 Implement a RESTful API to be reached by a HTTP POST request to receive the location information sent by AWS IoT (as described above). Upon receiving a location info, this API should invoke a Google Places API to get the place name related to the received latitude/longitude (get the address if place name is not available), and then send a push notification to the phone with the same information including the place - example:
 
-{
-    "latitude": 37.427440,,
+`{
+    "latitude": 37.427440,
     "longitude": -122.169118,
     "accuracy": 18,
     "place": "Stanford University"
-}
+}`
 
 Upon receiving this push notification, the phone should react as described in the Mobile App section.
 
