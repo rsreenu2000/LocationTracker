@@ -14,11 +14,11 @@ In background mode, the app should report it's current location (latitude, longi
 
 The app should use MQTT protocol to send the location info to the cloud (as described below in AWS IoT), using a JSON payload - example:
 
-{
-    "latitude": 37.427440,,
+`{
+    "latitude": 37.427440,
     "longitude": -122.169118,
     "accuracy": 18
-}
+}`
 
 As Receiver:
 
