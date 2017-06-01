@@ -4,7 +4,7 @@ This project implements a simple end-to-end system that allows location sharing 
 
 # Project Description / Requirements:
 
-# Android Mobile App:
+## Android Mobile App:
 
 To make it simple, the same app will be the sender (send location info to the cloud) and receiver (receive the location updates from the cloud), so it doesn't need to handle multiple phones.
 
@@ -24,11 +24,11 @@ As Receiver:
 
 The app should also handle a push notification that will be sent by the Cloud (implemented using FCM) whenever there is a location shared to the cloud, and show a notification on the notification curtain with the location info received.  When user clicks this notification from the notification curtain, it should launch the app and show the location info received in the UI. If the app is already in the foreground when the notification is received, it should not add a notification in the curtain, just show the received location info in the UI.
 
-# Cloud: AWS IoT
+## Cloud: AWS IoT
 
 Implement a topic in AWS IoT to handle the location message coming from the phone and a Lambda function (implemented in Java) to be notified whenever there is a message sent to that topic. This lambda function should extract the JSON payload sent by the phone, make sure it's valid (contains the fields listed above) and send it to a RESTful API implemented on Google Platform using HTTP POST request.
 
-# Cloud: Google Platform
+## Cloud: Google Platform
 
 Implement a RESTful API to be reached by a HTTP POST request to receive the location information sent by AWS IoT (as described above). Upon receiving a location info, this API should invoke a Google Places API to get the place name related to the received latitude/longitude (get the address if place name is not available), and then send a push notification to the phone with the same information including the place - example:
 
@@ -42,7 +42,7 @@ Implement a RESTful API to be reached by a HTTP POST request to receive the loca
 Upon receiving this push notification, the phone should react as described in the Mobile App section.
 
 
-# Additional - Thread producer/consumer
+## Additional - Thread producer/consumer
 
 When the app is running in the foreground, it should have an internal producer/consumer mechanism (using thread and wait/notify) to add an extra tag (some string) to the location information received in the notification. This producer/consumer should work as follows:
 
